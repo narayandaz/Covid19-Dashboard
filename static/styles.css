@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Della+Respira&family=Kanit&family=Prompt&display=swap');
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Prompt', sans-serif;
+}
+
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.container {
+    text-align: center;
+    padding-top: 1rem;
+}
+
+td>small {
+    font-weight: 600;
+    margin-left: 5px;
+    font-size: 0.75rem;
+}
+
+.confirmed {
+    color: red;
+}
+
+.deceased {
+    color: grey;
+}
+
+.recovered {
+    color: green;
+}
+
+.vaccinated {
+    color: rgb(10, 181, 233);
+}
+
+.state_name {
+    cursor: pointer;
+    color: rgb(0, 47, 255) !important;
+}
+
+.state_name:hover {
+    font-size: 1.025rem;
+    text-decoration: none;
+}
+
+.updated_date {
+    color: green;
+}
+
+.tested {
+    color: #bd4618e8;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+footer>* {
+    align-self: center;
+    text-align: center;
+}
+
+.link {
+    align-self: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.link i {
+    color: black;
+    font-size: 1.5rem;
+}
+
+.link i:hover {
+    color: gray;
+    font-size: 1.6rem;
+}
+
+.container_data {
+    display: flex;
+    flex-direction: row;
+    flex-basis: auto;
+    align-items: center;
+    max-width: 100%;
+    flex-grow: inherit;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.container_data div {
+    /*border: 1px solid #ccc;*/
+    margin: 0 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 100%;
+    text-align: center;
+    height: 8rem;
+}
+
+.confirmed_24 {
+    background-color: aliceblue;
+    color: #1269d4;
+    border: 1px solid #1269d4;
+}
+
+.deceased_24 {
+    background-color: whitesmoke;
+    color: #6b6a6a;
+    border: 1px solid #6b6a6a;
+}
+
+.recovered_24 {
+    background-color: #cbfbcb;
+    color: green;
+    border: 1px solid green;
+}
+
+.active_24 {
+    color: red;
+    background-color: rgb(243 202 202);
+    border: 1px solid red;
+}
+
+.vaccination_number {
+    color: blue;
+    /*background-color: #f9f4c4;*/
+    max-width: 33rem;
+    text-align: center;
+    align-items: center;
+    margin: 1rem auto 2rem;
+    padding: 1rem;
+    border-radius: 0.7rem;
+    border: 1px solid yellowgreen;
+}
+
+.vaccination_number>ul {
+    list-style-type: none;
+    margin-bottom: 0;
+    margin-top: 1rem;
+}
+
+li:not(:last-of-type) {
+    margin-bottom: 1rem;
+}
+
+.vaccine_values {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1rem;
+    color: royalblue;
+}
+
+.vaccination_container {
+    margin-top: 2rem;
+}
+
+.vaccination_number i {
+    color: maroon;
+}
+
+.progress {
+    margin: 0.25rem 0;
+}
+
+.total_doses {
+    font-size: 1.6rem;
+    color: midnightblue;
+    font-family: fantasy;
+}
+
+
+
+#first_dose_progress {
+    background-color: yellowgreen;
+}
+
+#second_dose_progress {
+    background-color: #64a303;
+}
+
+a {
+    text-decoration: none;
+}
+
+.vaccine_list small {
+    color: darkred;
+    font-size: 1rem;
+}
+
+#preload {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 1);
+    transition: 1s 0.4s;
+}
+
+#preload img {
+    margin: 40vh auto;
+    display: block;
+}
+
+/* Styles for Vaccination.html */
+
+input[type=text] {
+    border: 2px solid cornflowerblue;
+    font-size: 1.15rem;
+    padding: 3px;
+    outline: none;
+    border-radius: 6px;
+}
+
+.nav-links {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.nav-links:hover {
+    font-size: 1.025rem;
+    text-decoration: none;
+}
+
+.CS {
+    color: green;
+}
+
+.CX {
+    color: #08adf1;
+}
+
+.SV {
+    color: rgb(16, 16, 231);
+}
+
+.vaccine_banner {
+    color: white;
+    border: 2px solid white;
+    background-color: rgb(5, 8, 240);
+    padding: 6px;
+    border-radius: 0.81rem;
+}
+
+.vaccine_banner:hover {
+    color: white;
+    font-size: 1.025rem;
+}
+
+.avl_doses {
+    background-color: #efeded;
+    padding: 5px;
+    border-radius: 1.5rem;
+    margin-left: 0;
+    font-weight: 100;
+    color: brown;
+}
+
+.vaccine_name>hr {
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.banner {
+    color: white;
+    border: 2px solid white;
+    background-color: rgb(5 115 240);
+    padding: 6px;
+    border-radius: 0.81rem;
+}
+
+.banner:hover {
+    color: white;
+    font-size: 1.025rem;
+}
+
+#vaccine_date {
+    color: red;
+}
+
+#preload_vaccine {
+    margin-top: 3rem;
+    visibility: hidden;
+}
+
+#vaccine_table {
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 360px) {
+    #pin_search {
+        margin-top: 0.6rem;
+    }
+
+    #vaccine_table {
+        font-size: smaller;
+    }
+
+    .total_doses {
+        font-size: 1.25rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .container_data {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container_data div {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    #vaccine_table {
+        font-size: smaller;
+    }
+
+    .total_doses {
+        font-size: 1.25rem;
+    }
+}
