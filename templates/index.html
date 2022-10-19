@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block title %}
+Covid19 Dashboard of india
+{% endblock %}
+{% block head %}
+{{ super() }}
+<script async src="/static/script.min.js"></script>
+{% endblock %}
+{% block content %}
+<div class="container content mt-2">
+    <h3 class="main_heading">Covid19 Dashboard</h3>
+    <small>Data as on: <span class="updated_date"></span></small>
+    <br>
+    <hr>
+    <h5 class="m-2 ">Total Cases</h5>
+    <div class="container_data">
+        <div class="confirmed_24">
+            <p>Confirmed</p>
+            <h3></h3>
+            <small></small>
+        </div>
+        <div class="active_24">
+            <p>Active</p>
+            <h3></h3>
+            <small></small>
+        </div>
+        <div class="deceased_24">
+            <p>Deceased</p>
+            <h3></h3>
+            <small></small>
+        </div>
+        <div class="recovered_24">
+            <p>Recovered</p>
+            <h3></h3>
+            <small></small>
+        </div>
+    </div>
+    
+    <div class="vaccination_container">
+        <h5 class="mt-2">Vaccination Information</h5>
+        <div class="vaccination_number">
+            <p><span class="total_doses"></span> vaccines administered.</p>
+            <ul class="vaccine_list">
+                <li>
+                    <i class="fas fa-syringe"></i>&nbsp;<small>One Dose: <span id="first_dose_count"
+                            class="vaccine_values"></span></small>
+                    <div class="progress">
+                        <div id="first_dose_progress" class="progress-bar" role="progressbar" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-syringe"></i><i class="fas fa-syringe"></i>&nbsp;<small>Two Doses:
+                        <span id="second_dose_count" class="vaccine_values"></small>
+                    <div class="progress">
+                        <div id="second_dose_progress" class="progress-bar" role="progressbar" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+
+    <!--Plotly graph-->
+    <div id="totalDiv"></div>
+    <div id="dailyDiv"></div>
+    <div id='totalBarDiv'></div>
+    <div style="width: 100%; overflow-x: auto;">
+        <table class="table-bordered table main_table text-center mt-3" id="main_table">
+            <thead>
+                <tr class="thead-dark">
+                    <th>State Name</th>
+                    <th>Confirmed</th>
+                    <th>Active</th>
+                    <th>Deceased</th>
+                    <th>Recovered</th>
+                    <th>Tested</th>
+                    <th>Vaccinated</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

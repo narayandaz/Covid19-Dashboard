@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/mapdata/countries/in/custom/in-all-disputed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+    <h1 class="p-3 mb-2 bg-secondary text-white text-center">Overview</h1>
+
+    <br>
+    <div class="row">
+        <!-- States increasing trend -->
+        <div class="col-sm-6 accordion" id="accordion-increase">
+            <div class="card mx-md-3">
+                <div class="card-header" id="heading-increase">
+                    <!-- Need to add js code to change symbol on collapse and show -->
+                    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Top 10 states with increasing cases over last week
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="heading-increase" data-parent="#accordion-increase">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">State</th>
+                                    <th scope="col">Increase</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for state, value in context['increasing_states'] %}
+                                <tr>
+                                    <td><a class="text-decoration-none" href="/{{ state }}">{{ state }}</a></td>
+                                    <td>{{ value }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- States decreasing trend -->
+        <div class="col-sm-6 accordion" id="accordion-decrease">
+            <div class="card mx-md-3">
+                <div class="card-header" id="heading-decrease">
+                    <!-- Need to add js code to change symbol on collapse and show -->
+                    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Top 10 states with decreasing cases over last week
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="heading-decrease" data-parent="#accordion-decrease">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">State</th>
+                                    <th scope="col">Decrease</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for state, value in context['decreasing_states'] %}
+                                <tr>
+                                    <td><a class="text-decoration-none" href="/{{ state }}">{{ state }}</a></td>
+                                    <td>{{ value }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    <br>
+
+    <!--  Active cases pie  -->
+    <div class="accordion" id="accordion-pie-active-states">
+        <div class="card mx-md-3">
+            <div class="card-header" id="accordion-active-cases">
+                <!-- Need to add js code to change symbol on collapse and show -->
+                <button class="btn" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    Active Cases State Contribution Top 10
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="collapseThree" class="collapse show" aria-labelledby="accordion-active-cases" data-parent="#accordion-pie-active-states">
+                <div class="card-body">
+                    <canvas id="ActiveCasesStateTopTen" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="card mx-md-3">
+        <div class="card-header">Active Cases by State</div>
+        <div class="card-body">
+            <div id="map"></div>
+        </div>
+    </div>
+    <br>
+
+    <script>
+        var ctx_active_cases_state = document.getElementById('ActiveCasesStateTopTen').getContext('2d');
+        var chart = new Chart(ctx_active_cases_state, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: {{ context['active_cases_pie_values']|safe }},
+                    backgroundColor: [
+                        'rgb(153, 17, 19)',
+                        'rgb(38, 68, 108)',
+                        'rgb(90, 157, 25)',
+                        'rgb(112, 27, 28)',
+                        'rgb(178, 1, 114)',
+                        'rgb(189, 163, 16)',
+                        'rgb(195, 102, 65)',
+                        'rgb(41,80,30)',
+                        'rgb(31,90,50)',
+                        'rgb(227, 161, 78)',
+                        'rgb(21, 82, 99)'
+                    ],
+                }],
+                labels: {{ context['active_cases_pie_states']|safe }}
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'right'
+                }
+            }
+        });
+
+        Highcharts.mapChart('map', {
+            chart: {
+                map: 'countries/in/custom/in-all-disputed',
+                height: 100 + '%',
+            },
+
+            title: {
+                text: 'Active cases by state'
+            },
+
+            responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                        layout: 'horizontal'
+                    },
+                    yAxis: {
+                        labels: {
+                            align: 'left',
+                            x: 0,
+                            y: -5
+                        },
+                        title: {
+                            text: null
+                        }
+                    },
+                    subtitle: {
+                        text: null
+                    },
+                    credits: {
+                        enabled: false
+                    }
+                }
+            }]
+        },
+
+            mapNavigation: {
+                enabled: false,
+                buttonOptions: {
+                    verticalAlign: 'bottom'
+                }
+            },
+
+            colorAxis: {
+                min: 0
+            },
+
+            series: [{
+                data: {{ context['data']|safe }},
+                name: 'Active cases',
+                states: {
+                    hover: {
+                        color: '#002b80'
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    format: '<a href="/{point.name}/">{point.name}</a>'
+                }
+            }]
+        });
+
+    </script>
+
+{% endblock %}

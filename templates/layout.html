@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="author" content="Narayan Das">
+
+    <title>{% block title %}{% endblock %} | Covid Statistics & analysis Using ML</title>
+    <link rel="preconnect" href="https://api.covid19india.org/min/data.min.json" as="fetch">
+    <link rel="preconnect" href="https://api.covid19india.org/min/timeseries.min.json" as="fetch">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/static/styles.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script defer src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/mapdata/countries/in/custom/in-all-disputed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    {% endblock %}
+    <style>
+        .text-small {
+            font-size: 0.9rem;
+        }
+        
+        a {
+          color: inherit;
+          text-decoration: none;
+          transition: all 0.3s;
+        }
+        
+        a:hover, a:focus {
+          text-decoration: none;
+        }
+        
+        .form-control {
+          background: #212529;
+          border-color: #545454;
+        }
+        
+        .form-control:focus {
+          background: #212529;
+        }
+        
+        footer {
+          background: #212529;
+        }
+    </style>
+    <nav class="navbar navbar-light bg-light justify-content-between mx-auto">
+        <a href="/" class="navbar-brand"> &nbsp;&nbsp;Covid19 </a>
+        <p class="form-inline">
+            <a href="{{ url_for('vaccination_center_search') }}" class="nav-links vaccine_banner"><i class="fas fa-syringe"></i>
+                Vaccination Centers
+            </a>
+        </p>
+      </nav>
+</head>
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="preload">
+        <img src="/static/loading.gif" alt="Loading">
+    </div>
+    {% block content %}
+    {% endblock %}
+    
+    <div class="d-flex flex-column h-100">
+    
+        <!-- FOOTER -->
+        <footer class="w-100 py-4 flex-shrink-0">
+            <div class="container py-4">
+                <div class="row gy-4 gx-5">
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="h1 text-white">Covid19</h5>
+                        <p class="small text-muted">It is a Machine Learning Project where show Covid 19 Analytics Data using Python, Flask, Numpy, Pands, etc</p>
+                        <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved. <br/><a class="text-primary" href="https://www.linkedin.com/in/narayan-das/">Narayan Das</a></p>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <h5 class="text-white mb-3">Quick links</h5>
+                        <ul class="list-unstyled text-muted">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Get started</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="text-white mb-3">About US</h5>
+                        <p class="small text-muted"><a href="https://www.linkedin.com/in/narayan-das/">Linkedin</a></p>
+                        <p class="small text-muted"><a href="https://www.linkedin.com/in/narayan-das/">GitHub</a></p>
+                        <p class="small text-muted"><a href="https://www.linkedin.com/in/narayan-das/">instagram</a></p>
+                        <form action="#">
+                            <div class="input-group mb-3">
+                                <input class="form-control" type="text" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-primary" id="button-addon2" type="button"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+      
+</body>
+
+</html>

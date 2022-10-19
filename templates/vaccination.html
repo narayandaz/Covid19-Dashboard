@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}
+Covid 19 Vaccination
+{% endblock %}
+{% block head %}
+{{ super() }}
+<script async src="/static/script.min.js"></script>
+{% endblock %}
+{% block content %}
+
+<div class="container content">
+    <h3 id="heading">Vaccination Centres in India</h3>
+    <p id="vaccine_date" class="small">Note: These vaccination centers are for today only</p>
+     <hr>
+
+    <span style="font-size: 1.25rem;">
+        Enter PIN Code:</span>&nbsp;<input type="text" placeholder="PIN Code" id="pin_field" autofocus
+        maxlength="6">
+    <button class="btn-success btn" id="pin_search">Search</button>
+    <div style="width: 100%; overflow-x: auto;">
+        <div id="preload_vaccine">
+            <img src="/static/loading.gif" alt="Loading">
+        </div>
+        <table class="table-bordered table main_table text-center mt-3" id="vaccine_table"
+            style="overflow-x: auto;">
+            <thead>
+                <tr class="thead-dark">
+                    <th>Centre</th>
+                    <th>Vaccine</th>
+                    <th>Slots</th>
+                    <th>Address</th>
+                    <th>Fee</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
