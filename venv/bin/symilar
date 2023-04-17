@@ -1,4 +1,4 @@
-#!/home/narayan/Documents/AWS/covid-19_india_data/venv/bin/python3
+#!/mnt/PROJECTS/GitHub/Covid19-Dashboard/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
