@@ -138,7 +138,7 @@ $(document).ready(function () {
         $.getJSON(url, function (data) {
             // Last Updated date of State data
             var state_updated_date = data[state_id]['meta']['last_updated'];
-            $('.updated_date').text(moment(state_updated_date).format('MMMM Do YYYY, h:mm:ss a') + ' (IST)');
+            $('.updated_date').text(moment(state_updated_date).format('MMMM Do YYYY, h:mm:ss a') );
             //console.log(data[state_id]);
 
 

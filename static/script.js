@@ -24,7 +24,7 @@ $(document).ready(function () {
     
     //const url = 'https://data.covid19india.org/v4/min/data.min.json'
     const url = 'https://api.covid19tracker.in/data/static/data.min.json';
-    const date_url = 'https://api.covid19tracker.in/data/static/data/2021-11-03.min.json'
+    const date_url = 'https://api.covid19tracker.in/data/static/data/2023-03-03.min.json'
     
     const state_code = {
         'AN': 'Andaman and Nicobar', 'AP': 'Andhra Pradesh', 'AR': 'Arunachal Pradesh', 'AS': 'Assam', 'BR': 'Bihar', 'TT': 'Total',
@@ -151,7 +151,7 @@ $(document).ready(function () {
             var updated_date = data['TT']['meta']['last_updated'];
             // Adding the updated date
             x = updated_date.split('T');
-            $('.updated_date').text(moment(updated_date).format('MMMM Do YYYY, h:mm:ss a') + ' (IST)');
+            $('.updated_date').text(moment(updated_date).format('MMMM Do YYYY, h:mm:ss a') );
             var state_data = [];
             $.each(data, function (item) {
                 /* Used in plotting Bar graphs */

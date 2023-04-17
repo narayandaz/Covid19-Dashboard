@@ -1,6 +1,8 @@
 from flask import (Flask, render_template, request,
                    send_from_directory, abort)
-
+from flask import Flask, render_template, request, redirect, url_for
+import requests
+import json
 
 app = Flask(__name__)
 
@@ -45,9 +47,69 @@ def show_graphs(state_code):
     return render_template('show_graph.html', state_id=state_code)
 
 
-@app.route('/vaccination_center')
-def vaccination_center_search():
-    return render_template('vaccination.html')
+# @app.route('/vaccination_center')
+# def vaccination_center_search():
+#     return render_template('vaccination.html')
+
+@app.route('/pincode', methods=['GET', 'POST'])
+def pincode_page():
+    if request.method == 'POST':
+        pincode = request.form['pincode']
+        return redirect(url_for('get_vaccine_centers', pincode=pincode))
+    else:
+        return render_template('pincode.html')
+
+@app.route('/vaccine_centers')
+def get_vaccine_centers():
+    pincode = request.args.get('pincode')
+
+    # Make a GET request to the API endpoint
+    url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode={pincode}&date=2023-04-17"
+    response = requests.get(url)
+
+    # Parse the JSON response
+    data = json.loads(response.text)
+
+    # Extract the list of centers and render the HTML template
+    centers = data['sessions']
+    return render_template('vaccine_centers.html', pincode=pincode, centers=centers)
+
+@app.route('/book_appointment/<center_id>', methods=['GET', 'POST'])
+def book_appointment(center_id):
+    if request.method == 'POST':
+        name = request.form['name']
+        age = request.form['age']
+        email = request.form['email']
+        dose = request.form['dose']
+        date = request.form['date']
+        slot = request.form['slot']
+
+        # Make a POST request to the API endpoint to book the appointment
+        url = 'https://cdn-api.co-vin.in/api/v2/appointment/schedule'
+        headers = {'Content-Type': 'application/json'}
+        data = {
+            'center_id': center_id,
+            'session_id': slot,
+            'beneficiaries': [{
+                'name': name,
+                'age': age,
+                'email': email,
+                'dose': dose,
+            }],
+        }
+        response = requests.post(url, headers=headers, data=json.dumps(data))
+
+        # Check the status code of the response and display an appropriate message
+        if response.status_code == 200:
+            flash('Appointment booked successfully!', 'success')
+        else:
+            flash('Failed to book appointment. Please try again later.', 'error')
+
+        return redirect(url_for('get_vaccine_centers', pincode=request.args.get('pincode')))
+    else:
+        slot = request.args.get('slot')
+        return render_template('book_appointment.html', center_id=center_id, slot=slot)
+
 
 
 @app.route('/robots.txt')
@@ -57,4 +119,4 @@ def static_from_root():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
